@@ -29,7 +29,6 @@ class UserController extends Controller
 
             Mail::to($user->email, $user->name)->send(new SendWelcomeEmailToUser($user));
 
-
                 return response()->json($user, 201);
         } catch (\Exception $exception) {
             return $this->error($exception->getMessage(), 400);

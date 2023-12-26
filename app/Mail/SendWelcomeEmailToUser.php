@@ -20,14 +20,29 @@ class SendWelcomeEmailToUser extends Mailable
      * Create a new message instance.
      */
 
-     public $user;
-     public $description;
+    public $user;
+    public $description;
+    public $limit;
 
-     public function __construct(User $user)
-     {
-         $this->user = $user;
+    public function __construct(User $user)
+    {
+        $this->user = $user;
+        
+        // Inicializa a variável $plan
+        $plan = null;
 
-     }
+        // Captura informações do plano associado ao usuário
+        try {
+            $plan = Plan::findOrFail($user->plan_id);
+            $this->description = $plan->description;
+            $this->limit = $plan->limit;
+
+        } catch (ModelNotFoundException $exception) {
+            // Lidar com o caso em que o plano não é encontrado
+            $this->description = 'Plano não encontrado';
+            $this->limit = null;
+        }
+    }
 
     /**
      * Get the message envelope.
@@ -47,6 +62,7 @@ class SendWelcomeEmailToUser extends Mailable
         return new Content(
             view: 'emails.welcomeUser',
         );
+        echo "name", "plan", "limit";
     }
 
     /**
@@ -56,8 +72,8 @@ class SendWelcomeEmailToUser extends Mailable
      */
     public function attachments(): array
     {
-
         // passar os anexos
         return [];
     }
 }
+
