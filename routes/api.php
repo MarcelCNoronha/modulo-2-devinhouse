@@ -7,6 +7,6 @@ Route::middleware('auth:sanctum')->group(function () {
     // rotas privadas
 });
 
-Route::post('teste', [UserController::class, 'store']);
+Route::post('users', [UserController::class, 'store']);
 
 // rota pública

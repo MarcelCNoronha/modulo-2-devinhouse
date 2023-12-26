@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html lang="pt-Br">
 <head>
@@ -11,12 +9,10 @@
 
     <p>Bem-vindo ao nosso site!</p>
 
-    <p>Você se inscreveu no plano <strong>{{ $plan }}</strong>, que oferece um limite de <strong>{{ $limit }}</strong> alunos.</p>
+    <p>Você se inscreveu no plano <strong>{{ $description }}</strong>, que oferece um limite de <strong>{{ $limit }}</strong> alunos.</p>
 
     <p>Aproveite nossos serviços!</p>
 
     <p>Atenciosamente,</p>
-
-    <p>
 </body>
 </html>

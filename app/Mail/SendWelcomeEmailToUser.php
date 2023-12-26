@@ -2,12 +2,15 @@
 
 namespace App\Mail;
 
+use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use App\Models\Plan;
 
 class SendWelcomeEmailToUser extends Mailable
 {
@@ -17,11 +20,14 @@ class SendWelcomeEmailToUser extends Mailable
      * Create a new message instance.
      */
 
-     public $name;
-    public function __construct($name)
-    {
-        $this->name = $name;
-    }
+     public $user;
+     public $description;
+
+     public function __construct(User $user)
+     {
+         $this->user = $user;
+
+     }
 
     /**
      * Get the message envelope.
