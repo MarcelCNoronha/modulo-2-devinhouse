@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Traits\HttpResponses;
-use Exception;
 use App\Models\Exercise;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -45,7 +44,7 @@ class ExerciseController extends Controller
             $exercise->save();
 
             return response()->json($exercise, Response::HTTP_CREATED);
-        } catch (Exception $exception) {
+        } catch (\Exception $exception) {
             return $this->error($exception->getMessage(), Response::HTTP_BAD_REQUEST);
         }
     }
