@@ -25,8 +25,10 @@ class AuthController extends Controller
             $authenticated = Auth::attempt($data);
 
             if (!$authenticated) {
-                return $this->error('Não autorizado. Credenciais incorretas', 
-                Response::HTTP_UNAUTHORIZED);
+                return $this->error(
+                    'Não autorizado. Credenciais incorretas',
+                    Response::HTTP_UNAUTHORIZED
+                );
             }
 
             $request->user()->tokens()->delete();

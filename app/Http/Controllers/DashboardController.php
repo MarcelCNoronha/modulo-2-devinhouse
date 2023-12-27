@@ -14,7 +14,7 @@ class DashboardController extends Controller
     use HttpResponses;
 
     public function index()
-    {    
+    {
         try {
             $user = auth()->user();
 
