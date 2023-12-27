@@ -4,11 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Mail\SendWelcomeEmailToUser;
 use App\Models\User;
+use App\Traits\HttpResponses;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
+use Symfony\Component\HttpFoundation\Response;
+
 
 class UserController extends Controller
 {
+    use HttpResponses;
     public function store(Request $request)
     {
 
@@ -29,9 +33,10 @@ class UserController extends Controller
 
             Mail::to($user->email, $user->name)->send(new SendWelcomeEmailToUser($user));
 
-                return response()->json($user, 201);
+                return response()->json($user, response::HTTP_CREATED);
+
         } catch (\Exception $exception) {
-            return $this->error($exception->getMessage(), 400);
+            return $this->error($exception->getMessage(), Response::HTTP_BAD_REQUEST);
         }
 
     }
