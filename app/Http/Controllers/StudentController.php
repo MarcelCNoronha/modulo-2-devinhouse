@@ -7,6 +7,7 @@ use App\Models\Student;
 use App\Models\Workout;
 use App\Traits\HttpResponses;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\DB;
 use Symfony\Component\HttpFoundation\Response;
 
 class StudentController extends Controller
@@ -161,4 +162,14 @@ class StudentController extends Controller
         return response()->json($groupedWorkouts, Response::HTTP_OK);
     }
 
+    public function show($id)
+    {
+        $student = Student::find($id);
+    
+        if (!$student) {
+            return response()->json(['error' => 'Estudante não encontrado.'], Response::HTTP_NOT_FOUND);
+        }
+    
+        return response()->json($student, Response::HTTP_OK);
+    }
 }

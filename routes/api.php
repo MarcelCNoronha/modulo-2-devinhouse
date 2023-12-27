@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->group(function () {
 
     Route::post('logout', [AuthController::class, 'logout']);
-    
+
     Route::post('dashboard', [DashboardController::class, 'index']);
 
     Route::post('exercises', [ExerciseController::class, 'store']);
@@ -25,10 +25,10 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::delete('students/{id}', [StudentController::class, 'destroy']);
     Route::put('students/{id}', [StudentController::class, 'update']);
     Route::get('students/{id}/workouts', [StudentController::class, 'getWorkouts']);
-   
+    Route::get('/students/{id}', [StudentController::class, 'show']);
 
     Route::post('workouts', [WorkoutController::class, 'store']);
-    
+
     // rotas privadas
 });
 
