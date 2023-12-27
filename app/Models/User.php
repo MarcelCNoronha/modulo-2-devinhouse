@@ -34,4 +34,9 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Plan::class, 'plan_id');
     }
+
+    public function students()
+    {
+        return $this->hasMany(Student::class);
+    }
 }

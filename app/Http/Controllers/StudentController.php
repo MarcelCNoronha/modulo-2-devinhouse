@@ -7,7 +7,6 @@ use App\Models\Student;
 use App\Models\Workout;
 use App\Traits\HttpResponses;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Support\Facades\DB;
 use Symfony\Component\HttpFoundation\Response;
 
 class StudentController extends Controller
@@ -39,11 +38,6 @@ class StudentController extends Controller
 
 
             $user = auth()->user();
-            // $userPlan = $user->plan;
-
-            // if ($userPlan->limit_students <= $user->students()->count()) {
-            //     return response()->json(['error' => 'Limite de cadastro de estudantes atingido.'], Response::HTTP_FORBIDDEN);
-            // }
 
             $student = new Student([
                 'name' => $request->input('name'),

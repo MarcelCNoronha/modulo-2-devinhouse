@@ -23,6 +23,11 @@ class Kernel extends HttpKernel
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
     ];
 
+    protected $routeMiddleware = [
+        // ... outros middlewares
+        'validate.limit.student' => \App\Http\Middleware\ValidateLimitStudentToUser::class,
+    ];
+
     /**
      * The application's route middleware groups.
      *
