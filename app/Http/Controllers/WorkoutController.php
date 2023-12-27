@@ -26,22 +26,21 @@ class WorkoutController extends Controller
                 'observations' => 'nullable|string',
                 'time' => 'required|integer',
             ]);
-    
+
             $existingWorkout = Workout::where('student_id', $request->student_id)
                 ->where('exercise_id', $request->exercise_id)
                 ->where('day', $request->day)
                 ->first();
-    
+
             if ($existingWorkout) {
                 return response()->json(['error' => 'Já existe um treino cadastrado para o mesmo dia e exercício.'], Response::HTTP_CONFLICT);
             }
-    
+
             $workout = Workout::create($request->all());
-    
+
             return response()->json($workout, Response::HTTP_CREATED);
         } catch (\Exception $exception) {
             return $this->error($exception->getMessage(), Response::HTTP_BAD_REQUEST);
         }
-       
     }
 }

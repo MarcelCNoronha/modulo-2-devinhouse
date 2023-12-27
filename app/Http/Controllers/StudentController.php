@@ -165,11 +165,11 @@ class StudentController extends Controller
     public function show($id)
     {
         $student = Student::find($id);
-    
+
         if (!$student) {
             return response()->json(['error' => 'Estudante não encontrado.'], Response::HTTP_NOT_FOUND);
         }
-    
+
         return response()->json($student, Response::HTTP_OK);
     }
 }

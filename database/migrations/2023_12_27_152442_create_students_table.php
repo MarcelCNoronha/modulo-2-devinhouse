@@ -21,7 +21,7 @@ class CreateStudentsTable extends Migration
             $table->string('number', 30)->nullable();
             $table->string('street', 30)->nullable();
             $table->string('state', 2)->nullable();
-            $table->string('cep', 20)->nullable();                  
+            $table->string('cep', 20)->nullable();
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users');

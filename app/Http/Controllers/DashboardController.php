@@ -23,7 +23,7 @@ class DashboardController extends Controller
             $registeredExercises = Exercise::where('user_id', $user->id)->count();
             $currentUserPlan = $user->plan->description;
             $remainingStudents = max(0, $user->plan->limit - $registeredStudents);
-    
+
             return response()->json([
                 'registered_students' => $registeredStudents,
                 'registered_exercises' => $registeredExercises,
