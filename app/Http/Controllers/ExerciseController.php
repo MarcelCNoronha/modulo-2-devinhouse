@@ -8,8 +8,6 @@ use Exception;
 use App\Models\Exercise;
 use Symfony\Component\HttpFoundation\Response;
 
-
-
 class ExerciseController extends Controller
 {
 
