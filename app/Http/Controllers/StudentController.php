@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Student;
+use App\Models\Workout;
 use App\Traits\HttpResponses;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Symfony\Component\HttpFoundation\Response;
@@ -147,4 +148,17 @@ class StudentController extends Controller
 
         return response()->json($student, Response::HTTP_OK);
     }
+
+    public function getWorkouts($studentId)
+    {
+        $workouts = Workout::where('student_id', $studentId)
+            ->orderBy('day')
+            ->orderBy('created_at')
+            ->get();
+
+        $groupedWorkouts = $workouts->groupBy('day');
+
+        return response()->json($groupedWorkouts, Response::HTTP_OK);
+    }
+
 }
