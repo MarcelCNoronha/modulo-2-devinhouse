@@ -51,4 +51,26 @@ class ExerciseController extends Controller
         }
 
     }  
+
+    public function destroy($id)
+{
+    $user = auth()->user();
+    $exercise = Exercise::find($id);
+
+    if (!$exercise) {
+        return response()->json(['error' => 'Exercício não encontrado.'], Response::HTTP_NOT_FOUND);
+    }
+
+    if ($exercise->user_id !== $user->id) {
+        return response()->json(['error' => 'Acesso não autorizado.'], Response::HTTP_FORBIDDEN);
+    }
+
+    if ($exercise->treinos()->count() > 0) {
+        return response()->json(['error' => 'Não é permitido deletar o exercício devido a treinos vinculados.'], Response::HTTP_CONFLICT);
+    }
+
+    $exercise->delete();
+    return response()->json(null, Response::HTTP_NO_CONTENT);
+}
+
 }
