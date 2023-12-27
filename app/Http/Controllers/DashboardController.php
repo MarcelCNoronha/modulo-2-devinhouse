@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\Student;
 use App\Models\Exercise;
 use App\Traits\HttpResponses;
+use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
 class DashboardController extends Controller
@@ -16,21 +17,19 @@ class DashboardController extends Controller
     public function index()
     {
         try {
-            $user = auth()->user();
+            $user = Auth::user();
 
-            $registered_students = Student::where('user_id', $user->id)->count();
-            $registered_exercises = Exercise::where('user_id', $user->id)->count();
-            $current_user_plan = Plan::find($user->plan_id);
-            $remaining_students = $current_user_plan ? $current_user_plan->limit - $registered_students : null;
-
-            $data = [
-                'registered_students' => $registered_students,
-                'registered_exercises' => $registered_exercises,
-                'current_user_plan' => $current_user_plan,
-                'remaining_students' => $remaining_students
-            ];
-
-            return response()->json($data, Response::HTTP_OK);
+            $registeredStudents = Student::where('user_id', $user->id)->count();
+            $registeredExercises = Exercise::where('user_id', $user->id)->count();
+            $currentUserPlan = $user->plan->description;
+            $remainingStudents = max(0, $user->plan->limit - $registeredStudents);
+    
+            return response()->json([
+                'registered_students' => $registeredStudents,
+                'registered_exercises' => $registeredExercises,
+                'current_user_plan' => $currentUserPlan,
+                'remaining_students' => $remainingStudents,
+            ], Response::HTTP_OK);
         } catch (\Exception $exception) {
             return $this->error($exception->getMessage(), Response::HTTP_BAD_REQUEST);
         }
