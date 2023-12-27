@@ -114,4 +114,38 @@ class StudentController extends Controller
         return response()->json([], Response::HTTP_NO_CONTENT);
     }
 
+    public function update(Request $request, $id)
+    {
+        $user = auth()->user();
+
+        $student = Student::where('id', $id)
+            ->where('user_id', $user->id)
+            ->first();
+
+        if (!$student) {
+            return response()->json(['error' => 'Estudante não encontrado.'], Response::HTTP_NOT_FOUND);
+        }
+
+        $request->validate([
+            'name' => 'sometimes|max:255',
+            'email' => 'sometimes|email|unique:students,email,' . $id . '|max:255',
+            'date_birth' => 'sometimes|date_format:Y-m-d',
+            'cpf' => [
+                'sometimes',
+                'unique:students,cpf,' . $id,
+                'regex:/^\d{3}\.\d{3}\.\d{3}-\d{2}$|^\d{11}$/',
+            ],
+            'cep' => 'sometimes|max:20',
+            'street' => 'sometimes|max:30',
+            'state' => 'sometimes|max:2',
+            'neighborhood' => 'sometimes|max:50',
+            'city' => 'sometimes|max:50',
+            'number' => 'sometimes|max:30',
+            'contact' => 'sometimes|max:20',
+        ]);
+
+        $student->update($request->all());
+
+        return response()->json($student, Response::HTTP_OK);
+    }
 }
