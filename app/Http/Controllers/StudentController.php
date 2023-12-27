@@ -66,4 +66,31 @@ class StudentController extends Controller
             }
         }
 
+        public function index(Request $request)
+{
+    try {
+        $user = auth()->user();
+        $query = Student::where('user_id', $user->id);
+
+        $query = Student::query();
+
+        if ($request->has('name')) {
+            $query->where('name', 'like', '%' . $request->input('name') . '%');
+        }
+    
+        if ($request->has('cpf')) {
+            $query->where('cpf', 'like', '%' . $request->input('cpf') . '%');
+        }
+
+        if ($request->has('email')) {
+            $query->where('email', 'like', '%' . $request->input('email') . '%');
+        }
+
+        $students = $query->orderBy('name')->get();
+
+        return response()->json($students, Response::HTTP_OK);
+    } catch (\Exception $exception) {
+        return $this->error($exception->getMessage(), Response::HTTP_BAD_REQUEST);
+    }
+}
 }
