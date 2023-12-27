@@ -12,6 +12,17 @@ use Symfony\Component\HttpFoundation\Response;
 
 class ExerciseController extends Controller
 {
+
+    public function index()
+{
+    $user = auth()->user();
+    $exercises = Exercise::where('user_id', $user->id)
+        ->orderBy('description')
+        ->get();
+
+    return response()->json($exercises, Response::HTTP_OK);
+}
+
     public function store(Request $request)
     {
         try {
