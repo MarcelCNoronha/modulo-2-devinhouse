@@ -13,10 +13,10 @@
 <body>
     <h1 class="title">Lista de Treinos</h1>
 
-    <h2>Estudante: <span>{{ $student->name }}</span> </h2>
+    <h2>Estudante: <span>{{ $name }}</span> </h2>
 
-    @foreach ($workouts as $day => $groupedWorkouts)
-        <h3>{{ $day }}</h3>
+    @foreach ($workouts as $workout)
+        <h3>{{ $workout['day'] }}</h3>
         <table border="1">
             <thead>
                 <th>Exercicio</th>
@@ -27,20 +27,17 @@
                 <th>Observações</th>
             </thead>
             <tbody>
-                @foreach ($groupedWorkouts as $workout)
-                    <tr>
-                        <td>{{ $workout->exercise_id }} </td>
-                        <td>{{ $workout->repetitions }} </td>
-                        <td>{{ $workout->weight }} </td>
-                        <td>{{ $workout->break_time }} </td>
-                        <td>{{ $workout->day }} </td>
-                        <td>{{ $workout->observations }} </td>
-                    </tr>
-                @endforeach
+                <tr>
+                    <td>{{ $workout['description'] ?? 'N/A' }} </td>
+                    <td>{{ $workout['repetitions'] ?? 'N/A' }} </td>
+                    <td>{{ $workout['weight'] ?? 'N/A' }} </td>
+                    <td>{{ $workout['break_time'] ?? 'N/A' }} </td>
+                    <td>{{ $workout['day'] ?? 'N/A' }} </td>
+                    <td>{{ $workout['observations'] ?? 'N/A' }} </td>
+                </tr>
             </tbody>
         </table>
     @endforeach
 </body>
 
 </html>
-
