@@ -12,11 +12,25 @@
 
 <body>
     <h1 class="title">Lista de Treinos</h1>
-
     <h2>Estudante: <span>{{ $name }}</span> </h2>
 
-    @foreach ($workouts as $workout)
-        <h3>{{ $workout['day'] }}</h3>
+    @php
+        $groupedWorkouts = [];
+        foreach ($workouts as $workout) {
+            $day = $workout['day'];
+            $groupedWorkouts[$day][] = [
+                'description' => $workout['description'] ?? 'N/A',
+                'repetitions' => $workout['repetitions'] ?? 'N/A',
+                'weight' => $workout['weight'] ?? 'N/A',
+                'break_time' => $workout['break_time'] ?? 'N/A',
+                'day' => $day,
+                'observations' => $workout['observations'] ?? 'N/A',
+            ];
+        }
+    @endphp
+
+    @foreach ($groupedWorkouts as $day => $exerciseGroup)
+        <h3>{{ $day }}</h3>
         <table border="1">
             <thead>
                 <th>Exercicio</th>
@@ -27,14 +41,16 @@
                 <th>Observações</th>
             </thead>
             <tbody>
-                <tr>
-                    <td>{{ $workout['description'] ?? 'N/A' }} </td>
-                    <td>{{ $workout['repetitions'] ?? 'N/A' }} </td>
-                    <td>{{ $workout['weight'] ?? 'N/A' }} </td>
-                    <td>{{ $workout['break_time'] ?? 'N/A' }} </td>
-                    <td>{{ $workout['day'] ?? 'N/A' }} </td>
-                    <td>{{ $workout['observations'] ?? 'N/A' }} </td>
-                </tr>
+                @foreach ($exerciseGroup as $exercise)
+                    <tr>
+                        <td>{{ $exercise['description'] }}</td>
+                        <td>{{ $exercise['repetitions'] }}</td>
+                        <td>{{ $exercise['weight'] }}</td>
+                        <td>{{ $exercise['break_time'] }}</td>
+                        <td>{{ $exercise['day'] }}</td>
+                        <td>{{ $exercise['observations'] }}</td>
+                    </tr>
+                @endforeach
             </tbody>
         </table>
     @endforeach
