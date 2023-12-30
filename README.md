@@ -183,7 +183,7 @@ Request JSON exemplo
 #### S05 - Listagem de exercícios
 
 ```http
-  POST /api/exercises
+  GET /api/exercises
 ```
 
 Response JSON exemplo
@@ -215,7 +215,7 @@ Response JSON exemplo
 #### S06 - Deleção de exercícios
 
 ```http
-  POST /api/exercises/{id}
+  DELETE /api/exercises/{id}
 ```
 
 | Response Status | Descrição   |
@@ -260,7 +260,7 @@ Request JSON exemplo
 #### S08 - Listagem de estudantes
 
 ```http
-  POST /api/students
+  GET /api/students
 ```
 
 Response JSON exemplo
@@ -298,7 +298,7 @@ Response JSON exemplo
 #### S09 - Deleção de estudante (Soft Delete)
 
 ```http
-  POST /api/students/{id}
+  DELETE /api/students/{id}
 ```
 
 | Response Status | Descrição   |
@@ -310,7 +310,7 @@ Response JSON exemplo
 #### S10 - Atualização de estudante
 
 ```http
-  POST /api/students/{id}
+  PUT /api/students/{id}
 ```
 
 Request JSON exemplo
@@ -369,7 +369,7 @@ Request JSON exemplo
 #### S12 - Listagem de treinos do estudante
 
 ```http
-  POST /api/students/{id}/workouts
+  GET /api/students/{id}/workouts
 ```
 
 Response JSON exemplo
@@ -417,7 +417,7 @@ Response JSON exemplo
 #### S13 - Listagem de um estudante
 
 ```http
-  POST /api/students/{id}
+  GET /api/students/{id}
 ```
 
 Response JSON exemplo
@@ -451,7 +451,7 @@ Response JSON exemplo
 #### S14 - Exportação de PDF
 
 ```http
-  POST /api/students/export
+  GET /api/students/export
 ```
 
 | Response Status | Descrição   |
